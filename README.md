@@ -1,6 +1,12 @@
 ### Escuela Colombiana de Ingeniería
 ### Arquitecturas de Software - ARSW
 
+## Integrantes
+*  Juan Sebastian Gomez
+*  Andres Guillermo Rocha
+
+
+
 ## Escalamiento en Azure con Maquinas Virtuales, Sacale Sets y Service Plans
 
 ### Dependencias
