@@ -192,7 +192,21 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 **Preguntas**
 
 * ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
+
+Un Balanceador de carga fundamentalmente es un dispositivo de hardware o software que se pone al frente de un conjunto de servidores que atienden una aplicación y, tal como su nombre lo indica, asigna o balancea las solicitudes que llegan de los clientes a los servidores usando algún algoritmo (desde un simple round-robin hasta algoritmos más sofisticados)
+
+Existen dos tipos de balanceadores de carga, *Balanceador de Carga Público* y *Balanceador de Craga Interno*. El Balanceasro de carga público asigna la dirección IP pública y el puerto de tráfico entrante a la dirección IP privada y al puerto de la máquina virtual, mientras que el *Balanceador de carga Interno* dirige el tráfico solo a los recursos que están contenidos en la red virtual.
+
+![](images/part2/load balance.png)
+
+SKU representa una unidad de manteminiento de existencias (Stock Keeping Unit) comprable bajo un producto. Hay dos tipos de SKU:
+estándar y básico. EL SKU estándar tiene más características que el básico, algunas diferencias son el soporte de mayor cantidad de instancias, soporte del protocolo HTTPS y el usode Health Probes. La gran mayoría de operaciones de este tipo de SKU se realizan en menos de 30 segundos, pero su principal desventaja es que no es gratis en comparación al SKU básico.
+
+Un balanceador de carga necesita una ip pública porque actúa como el único punto de interacción entre los clientes y la aplicación. Es el encargado de distribuir el tráfico entre los diferentes nodos disponibles.
+
 * ¿Cuál es el propósito del *Backend Pool*?
+
+
 * ¿Cuál es el propósito del *Health Probe*?
 * ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
 * ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
