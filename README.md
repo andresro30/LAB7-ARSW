@@ -193,52 +193,92 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 
 * ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
 
-Un Balanceador de carga fundamentalmente es un dispositivo de hardware o software que se pone al frente de un conjunto de servidores que atienden una aplicación y, tal como su nombre lo indica, asigna o balancea las solicitudes que llegan de los clientes a los servidores usando algún algoritmo (desde un simple round-robin hasta algoritmos más sofisticados)
+   Un Balanceador de carga fundamentalmente es un dispositivo de hardware o software que se pone al frente de un conjunto de               
+   servidores que atienden una aplicación y, tal como su nombre lo indica, asigna o balancea las solicitudes que llegan de los 
+   clientes a los servidores usando algún algoritmo (desde un simple round-robin hasta algoritmos más sofisticados)
 
-Existen dos tipos de balanceadores de carga, *Balanceador de Carga Público* y *Balanceador de Craga Interno*. El Balanceasro de carga público asigna la dirección IP pública y el puerto de tráfico entrante a la dirección IP privada y al puerto de la máquina virtual, mientras que el *Balanceador de carga Interno* dirige el tráfico solo a los recursos que están contenidos en la red virtual.
+   Existen dos tipos de balanceadores de carga, *Balanceador de Carga Público* y *Balanceador de Craga Interno*. El Balanceasro     
+   de carga público asigna la dirección IP pública y el puerto de tráfico entrante a la dirección IP privada y al puerto de la 
+   máquina virtual, mientras que el *Balanceador de carga Interno* dirige el tráfico solo a los recursos que están contenidos en 
+   la red virtual.
 
-![](images/part2/load balance.PNG)
+![](images/part2/load-balance.PNG)
 
-SKU representa una unidad de manteminiento de existencias (Stock Keeping Unit) comprable bajo un producto. Hay dos tipos de SKU:
-estándar y básico. EL SKU estándar tiene más características que el básico, algunas diferencias son el soporte de mayor cantidad de instancias, soporte del protocolo HTTPS y el usode Health Probes. La gran mayoría de operaciones de este tipo de SKU se realizan en menos de 30 segundos, pero su principal desventaja es que no es gratis en comparación al SKU básico.
+   SKU representa una unidad de manteminiento de existencias (Stock Keeping Unit) comprable bajo un producto. Hay dos tipos de 
+   SKU:
+   estándar y básico. EL SKU estándar tiene más características que el básico, algunas diferencias son el soporte de mayor 
+   cantidad de instancias, soporte del protocolo HTTPS y el usode Health Probes. La gran mayoría de operaciones de este tipo de 
+   SKU se realizan en menos de 30 segundos, pero su principal desventaja es que no es gratis en comparación al SKU básico.
 
-Un balanceador de carga necesita una ip pública porque actúa como el único punto de interacción entre los clientes y la aplicación. Es el encargado de distribuir el tráfico entre los diferentes nodos disponibles.
+   Un balanceador de carga necesita una ip pública porque actúa como el único punto de interacción entre los clientes y la 
+   aplicación. Es el encargado de distribuir el tráfico entre los diferentes nodos disponibles.
 
 * ¿Cuál es el propósito del *Backend Pool*?
 
-El backend Pool se refiere a un conjunto de backends que recibe un tráfico similar para la aplicación y responden con un comportamiento esperado. Su propósito es definir como los diferentes backends se deben evaluar mediante los Health Probes.
+   El backend Pool se refiere a un conjunto de backends que recibe un tráfico similar para la aplicación y responden con un 
+   comportamiento esperado. Su propósito es definir como los diferentes backends se deben evaluar mediante los Health Probes.
 
 * ¿Cuál es el propósito del *Health Probe*?
 
-Se envía periódicamente peticiones de sonde HTTP/HTTPS a cada backend configurado, con el propósito de determinar su proximidad y salud para equilibrar las cargas de las petciones de usuarios. 
+   Se envía periódicamente peticiones de sonde HTTP/HTTPS a cada backend configurado, con el propósito de determinar su 
+   proximidad y salud para equilibrar las cargas de las petciones de usuarios. 
 
 * ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
 
-El propósito del *Load Balancing Rule* es distribuir el tráfico que llega al front en los backends pools, donde están las máquinas virtuales de la aplicación . 
+   El propósito del *Load Balancing Rule* es distribuir el tráfico que llega al front en los backends pools, donde están las máquinas virtuales de la aplicación . 
 
-En Azure existen tres tipos de sesiones de persistencia:
-* None(hash-based): especifica que las solicitudes del mismo cliente pueden ser manejadas por cualqueir máquina virtual.
-* Client IP(ource Ip affinity 2-tuple): especifica que las peticiones sucesivas de la misma dirección Ip serán gestioanadas pro la misma máquina vritual.
-* Client IP and Protocol(source Ip affinity 3-tuple): especifica que las peticiones sucesivas de la misma combinación de dirección IP de cliente y protocolo serán tratadas por la misma máquina virtual.
+   En Azure existen tres tipos de sesiones de persistencia:
+   * None(hash-based): especifica que las solicitudes del mismo cliente pueden ser manejadas por cualqueir máquina virtual.
+   * Client IP(ource Ip affinity 2-tuple): especifica que las peticiones sucesivas de la misma dirección Ip serán gestioanadas 
+      por la misma máquina vritual.
+   * Client IP and Protocol(source Ip affinity 3-tuple): especifica que las peticiones sucesivas de la misma combinación de 
+      dirección IP de cliente y protocolo serán tratadas por la misma máquina virtual.
 
-Est información es muy importante porque indica como se deben comportar las peticiones que llegan al balanceador de carga, dependidiendo de su configuración se toma la decisión de delegar la petición a una máquina virtual aleatoria o una específica. Esto afecta la ecalbilidad del sistema, ya que el la configuración debe estar dada según el tipo de servicio que se ofrece. 
+   Esta información es muy importante porque indica como se deben comportar las peticiones que llegan al balanceador de carga, 
+   dependidiendo de su configuración se toma la decisión de delegar la petición a una máquina virtual aleatoria o una 
+   específica. Esto afecta la ecalbilidad del sistema, ya que el la configuración debe estar dada según el tipo de servicio que 
+   se ofrece. 
 
 * ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
 
-Una *Virtual Network* es la representación de una red propia en la nube. Es un aislamiento lógico de la nube virtual para uso del usuario. 
+   Una *Virtual Network* es la representación de una red propia en la nube. Es un aislamiento lógico de la nube virtual para uso 
+   del usuario. 
 
-Una *Subnet* es un rango de direcciones lógicas. Cuando una red se vuelve muy grande, conviene dividirla en subredes por los siguientes motivos: 
-* Reducir el tamaño de los dominios de broadcast.
-* Hacer la red más manejable, administrativamente. Entre otros, se puede controlar el tráfico entre diferentes subredes mediante ACL.
+   Una *Subnet* es un rango de direcciones lógicas. Cuando una red se vuelve muy grande, conviene dividirla en subredes por los 
+   siguientes motivos: 
+   * Reducir el tamaño de los dominios de broadcast.
+   * Hacer la red más manejable, administrativamente. Entre otros, se puede controlar el tráfico entre diferentes subredes 
+   mediante ACL.
 
-En Azure se permite segmentar la virtual network en varias subredes, asiganando un espacio de la red principal a cada subred creada.
+   En Azure se permite segmentar la virtual network en varias subredes, asiganando un espacio de la red principal a cada subred 
+   creada.
 
-Un *address space* es la cantidad de memoria asignada para todas las direcciones posibles para una entidad computacional, como un dispositivo, un archivo, un servidor o una computadora en red. El espacio de direcciones puede referirse a un rango de direcciones físicas o virtuales accesibles para un procesador o reservadas para un proceso.
+   Un *address space* es la cantidad de memoria asignada para todas las direcciones posibles para una entidad computacional, 
+   como un dispositivo, un archivo, un servidor o una computadora en red. El espacio de direcciones puede referirse a un rango 
+   de direcciones físicas o virtuales accesibles para un procesador o reservadas para un proceso.
 
-El *address range* es el rango de direcciones IP que se define a partir del address space.
+   El *address range* es el rango de direcciones IP que se define a partir del address space.
 
 * ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
+
+   *Availability Zones* es una oferta de alta disponibilidad que protege sus aplicaciones y datos de fallas en el centro de 
+   datos. Las zonas de disponibilidad son ubicaciones físicas únicas dentro de una región de Azure. Cada zona está compuesta por 
+   uno o más centros de datos equipados con alimentación, refrigeración y redes independientes. Para garantizar la resistencia, 
+   hay un mínimo de tres zonas separadas en todas las regiones habilitadas. 
+   
+   Esta separación física en tres zonas específicas de la región se hace para proteger las aplicaciones y los datos de fallas 
+   del centro de datos. Cuando seleccionamos tres zonas, estamos descentralizando la aplicación y podrá seguir funcionando 
+   apesar de que una zona  se caiga.
+   
+   Cuando tenemos una IP *zone-reduntdant* todos los flujos que entran o salen de la aplicación son atendidos por múltiples 
+   zonas de disponibilidad en una región simultaneamente utilizando la misma dirección IP.
+  
 * ¿Cuál es el propósito del *Network Security Group*?
+   
+   Un *Network Security Group* contiene reglas de seguridad que permiten o niegan el tráfico de red entrante, o el tráfico de 
+   red saliente, de varios tipos de recursos de Azure. Se usa para filtrar el tráfico de red hacia y desde los recursos de Azure 
+   en una red virtual de Azure con un grupo de seguridad de red.
+
 * Informe de newman 1 (Punto 2)
 * Presente el Diagrama de Despliegue de la solución.
 
