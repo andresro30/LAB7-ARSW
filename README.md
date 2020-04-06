@@ -92,11 +92,69 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 **Preguntas**
 
 1. ¿Cuántos y cuáles recursos crea Azure junto con la VM?
+  * Cuenta de almacenamiento
+  * Direccion IP publica
+  * Disco
+  * Grupo de seguridad de red
+  * Interfaz de red
+  * Red virtual
 2. ¿Brevemente describa para qué sirve cada recurso?
+  * Cuenta de almacenamiento: Es una cuenta que contiene los servicios de Azure Storage, la cual permite acceder a ellos via http o https.
+  * Direccion IP publica: es la direccion por la cual se puede conectar a la maquina virtual.
+  * Disco: es el disco que tiene actualmente la maquina y que se le permite hacer escalabilidad.
+  * Grupo de seguridad de red: Restringe el trafico de y hacia algunos recursos dependiendo de unas politicas de seguridad que tiene azure.
+  * Interfaz de red: le permite a la maquina cominucarse con recursos de internet, recursos de Azure o locales.
+  * Red virtual: permite en los recursos la comunicacion segura entre usuarios, internet o con redes locales. Permite ventajas en escalabilidad y disponibilidad.
 3. ¿Al cerrar la conexión ssh con la VM, por qué se cae la aplicación que ejecutamos con el comando `npm FibonacciApp.js`? ¿Por qué debemos crear un *Inbound port rule* antes de acceder al servicio?
-4. Adjunte tabla de tiempos e interprete por qué la función tarda tando tiempo.
+  * Cuando se cierra la conexion ssh se cierran todos los procesos que esten corriendo, el comando forver se eencarga de mantener el proceso en ejecucion.
+  * El *Inbound port rule* permite a la maquina comnpartir informacion por el puerto que se le indique y el puerto 3000 era el que tenia el script por defecto
+4. Adjunte tabla de tiempos e interprete por qué la función tarda tanto tiempo.
+
+### A0
+
+| Request | Tiempo |
+|---------|--------|
+| 1000000 | 23.41s |
+| 1010000 | 23.28s |
+| 1020000 | 25.12s |
+| 1030000 | 28.02s |
+| 1040000 | 27.73s |
+| 1050000 | 34.09s |
+| 1060000 | 38.54s |
+| 1070000 | 29.92s |
+| 1080000 | 33.86s |
+| 1090000 | 29.63s |
+
+
+### A0
+
+| Request | Tiempo |
+|---------|--------|
+| 1000000 | xx.xxs |
+| 1010000 | xx.xxs |
+| 1020000 | xx.xxs |
+| 1030000 | xx.xxs |
+| 1040000 | xx.xxs |
+| 1050000 | xx.xxs |
+| 1060000 | xx.xxs |
+| 1070000 | xx.xxs |
+| 1080000 | xx.xxs |
+| 1090000 | xx.xxs |
+
+La respuesta toma este timepo debido a que la funcion que calcula el resultado tien un tiempo lineal O(n) simpre, no se esta manejando ningun sistema de memorizacion. 
+
 5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.
+
+### A0
+
+![](arsw/consumoInicial.png)
+
 6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
+
+### A0
+
+![](arsw/resultadosInicial.png)
+
     * Tiempos de ejecución de cada petición.
     * Si hubo fallos documentelos y explique.
 7. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?
