@@ -206,10 +206,37 @@ Un balanceador de carga necesita una ip pública porque actúa como el único pu
 
 * ¿Cuál es el propósito del *Backend Pool*?
 
+El backend Pool se refiere a un conjunto de backends que recibe un tráfico similar para la aplicación y responden con un comportamiento esperado. Su propósito es definir como los diferentes backends se deben evaluar mediante los Health Probes.
 
 * ¿Cuál es el propósito del *Health Probe*?
+
+Se envía periódicamente peticiones de sonde HTTP/HTTPS a cada backend configurado, con el propósito de determinar su proximidad y salud para equilibrar las cargas de las petciones de usuarios. 
+
 * ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
+
+El propósito del *Load Balancing Rule* es distribuir el tráfico que llega al front en los backends pools, donde están las máquinas virtuales de la aplicación . 
+
+En Azure existen tres tipos de sesiones de persistencia:
+* None(hash-based): especifica que las solicitudes del mismo cliente pueden ser manejadas por cualqueir máquina virtual.
+* Client IP(ource Ip affinity 2-tuple): especifica que las peticiones sucesivas de la misma dirección Ip serán gestioanadas pro la misma máquina vritual.
+* Client IP and Protocol(source Ip affinity 3-tuple): especifica que las peticiones sucesivas de la misma combinación de dirección IP de cliente y protocolo serán tratadas por la misma máquina virtual.
+
+Est información es muy importante porque indica como se deben comportar las peticiones que llegan al balanceador de carga, dependidiendo de su configuración se toma la decisión de delegar la petición a una máquina virtual aleatoria o una específica. Esto afecta la ecalbilidad del sistema, ya que el la configuración debe estar dada según el tipo de servicio que se ofrece. 
+
 * ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
+
+Una *Virtual Network* es la representación de una red propia en la nube. Es un aislamiento lógico de la nube virtual para uso del usuario. 
+
+Una *Subnet* es un rango de direcciones lógicas. Cuando una red se vuelve muy grande, conviene dividirla en subredes por los siguientes motivos: 
+* Reducir el tamaño de los dominios de broadcast.
+* Hacer la red más manejable, administrativamente. Entre otros, se puede controlar el tráfico entre diferentes subredes mediante ACL.
+
+En Azure se permite segmentar la virtual network en varias subredes, asiganando un espacio de la red principal a cada subred creada.
+
+Un *address space* es la cantidad de memoria asignada para todas las direcciones posibles para una entidad computacional, como un dispositivo, un archivo, un servidor o una computadora en red. El espacio de direcciones puede referirse a un rango de direcciones físicas o virtuales accesibles para un procesador o reservadas para un proceso.
+
+El *address range* es el rango de direcciones IP que se define a partir del address space.
+
 * ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
 * ¿Cuál es el propósito del *Network Security Group*?
 * Informe de newman 1 (Punto 2)
