@@ -197,7 +197,7 @@ Un Balanceador de carga fundamentalmente es un dispositivo de hardware o softwar
 
 Existen dos tipos de balanceadores de carga, *Balanceador de Carga Público* y *Balanceador de Craga Interno*. El Balanceasro de carga público asigna la dirección IP pública y el puerto de tráfico entrante a la dirección IP privada y al puerto de la máquina virtual, mientras que el *Balanceador de carga Interno* dirige el tráfico solo a los recursos que están contenidos en la red virtual.
 
-![](images/part2/load balance.png)
+![](images/part2/load balance.PNG)
 
 SKU representa una unidad de manteminiento de existencias (Stock Keeping Unit) comprable bajo un producto. Hay dos tipos de SKU:
 estándar y básico. EL SKU estándar tiene más características que el básico, algunas diferencias son el soporte de mayor cantidad de instancias, soporte del protocolo HTTPS y el usode Health Probes. La gran mayoría de operaciones de este tipo de SKU se realizan en menos de 30 segundos, pero su principal desventaja es que no es gratis en comparación al SKU básico.
