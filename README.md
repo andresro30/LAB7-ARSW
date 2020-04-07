@@ -110,7 +110,7 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
   * El *Inbound port rule* permite a la maquina comnpartir informacion por el puerto que se le indique y el puerto 3000 era el que tenia el script por defecto
 4. Adjunte tabla de tiempos e interprete por qué la función tarda tanto tiempo.
 
-### A0
+### Inicial
 
 | Request | Tiempo |
 |---------|--------|
@@ -126,42 +126,72 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 | 1090000 | 29.63s |
 
 
-### A0
+### Final
 
 | Request | Tiempo |
 |---------|--------|
-| 1000000 | xx.xxs |
-| 1010000 | xx.xxs |
-| 1020000 | xx.xxs |
-| 1030000 | xx.xxs |
-| 1040000 | xx.xxs |
-| 1050000 | xx.xxs |
-| 1060000 | xx.xxs |
-| 1070000 | xx.xxs |
-| 1080000 | xx.xxs |
-| 1090000 | xx.xxs |
+| 1000000 | 20.51s |
+| 1010000 | 21.99s |
+| 1020000 | 21.13s |
+| 1030000 | 22.07s |
+| 1040000 | 21.49s |
+| 1050000 | 23.64s |
+| 1060000 | 23.29s |
+| 1070000 | 22.43s |
+| 1080000 | 23.61s |
+| 1090000 | 24.18s |
 
-La respuesta toma este timepo debido a que la funcion que calcula el resultado tien un tiempo lineal O(n) simpre, no se esta manejando ningun sistema de memorizacion. 
+La respuesta toma este timepo debido a que la funcion que calcula el resultado tien un tiempo lineal O(n) siempre debido a que no se esta manejando ningun sistema de memorizacion por lo tanto siempre calcula la funcion desde 0. 
 
 5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.
 
-### A0
+### Inicial
 
 ![](arsw/consumoInicial.png)
 
+
+### Final
+
+![](arsw/consumoFinal.png)
+
 6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
 
-### A0
+### Inicial
 
 ![](arsw/resultadosInicial.png)
 
+### Final
+
+![](arsw/resultadosFinal.png)
+
     * Tiempos de ejecución de cada petición.
+
+Se puede apreciar aque al hacer el escalamiento vertical el servidor fue capaz de resolver las peticiones casi un segundo mas rapido en promedio.
+
     * Si hubo fallos documentelos y explique.
+
 7. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?
+
+Estos tamaños hacen parte de la serie B, una serie de maquinas virtuales de bajo costo para alojar bases de datos pequeñas o servicios web de baja demanda.
+
+|  Categ  |  B2MS  |  B1LS  |
+|---------|--------|--------|
+|  vCPU   |    2   |    1   | 
+|   RAM   |   8Gb  |  0.5Gb |
+|   Temp Storage   | 16Bg | 4Gb |
+
+
 8. ¿Aumentar el tamaño de la VM es una buena solución en este escenario?, ¿Qué pasa con la FibonacciApp cuando cambiamos el tamaño de la VM?
+  * Para este escenario no se considera una buena solucion un escalamiento verticar ya que al aumentar los recursos de la maquina esta puede procesar informacion mucho mas rapido pero la mejoria en tiempos no se ve muy rentable comparada con el costo
+  * FibonacciApp puede dar respuesta mas rapido ya que la funcion de FibonacciService procesa datos mas rapido.
 9. ¿Qué pasa con la infraestructura cuando cambia el tamaño de la VM? ¿Qué efectos negativos implica?
+
+Al realizar un cambio en el hardware de la maquina esta genera que la maquina tenga que apagarse para realizar el cambio de tamaño. Al tener que apagarse el servicio queda deshabilitado por el tiempo que demore la el cambio, generando una falla de disponibilidad.
+
 10. ¿Hubo mejora en el consumo de CPU o en los tiempos de respuesta? Si/No ¿Por qué?
+  * En ambos hubo mejoría, en la parte inicial veiamos que la cpu llegaba a un 83% cuando se ralizaban peticiones muy grandes mientras que en la parte final llegaba a un maximo de 47%, en cuanto a los tiempos no se vio una mejoria muy grande, de 1 segundo en promedio.
 11. Aumente la cantidad de ejecuciones paralelas del comando de postman a `4`. ¿El comportamiento del sistema es porcentualmente mejor?
+
 
 ### Parte 2 - Escalabilidad horizontal
 
